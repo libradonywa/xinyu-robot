@@ -760,6 +760,9 @@ window.addEventListener('scroll',()=>{const s=scrollY;const bg=document.querySel
 // Stats trigger
 const sObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('.stat-bar-fill[data-width]').forEach(bar=>{setTimeout(()=>{bar.style.width=bar.dataset.width},300)});e.target.querySelectorAll('[data-count]').forEach(animateCounter)}})},{threshold:.3});
 document.getElementById('statsBar')&&sObs.observe(document.getElementById('statsBar'));
+
+// Hero metrics counter (auto-trigger on load)
+window.addEventListener('load',()=>{setTimeout(()=>{document.querySelectorAll('.hero-metric-val[data-count]').forEach(animateCounter)},800)});
 </script>
 </body>
 </html>
