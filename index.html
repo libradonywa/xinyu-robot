@@ -1,0 +1,765 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>湖南鑫彧智能科技有限公司 | 防爆协作机器人 · 智能制造</title>
+<meta name="description" content="湖南鑫彧智能科技有限公司 - 专注防爆协作机器人研发生产，为高等院校智慧科研实验室与高危工业领域提供智能化设备集成解决方案">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Noto+Sans+SC:wght@300;400;500;700;900&family=Orbitron:wght@400;500;700;900&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+:root{
+  --deep:#030810;--surface:#081020;--surface2:#0c1830;--surface3:#111f3a;
+  --cyan:#00c8ff;--cyan2:#0ea5e9;--cyan-dim:#0284c7;
+  --blue:#3b82f6;--purple:#8b5cf6;--violet:#a855f7;
+  --green:#10b981;--emerald:#34d399;
+  --gold:#fbbf24;--rose:#f43f5e;--orange:#f97316;
+  --text:#f1f5f9;--text2:#cbd5e1;--text3:#94a3b8;--text4:#64748b;
+  --glass:rgba(255,255,255,0.03);--glass2:rgba(255,255,255,0.06);
+  --border:rgba(255,255,255,0.06);--border2:rgba(255,255,255,0.1);
+  --glow:rgba(0,200,255,0.15);--glow2:rgba(59,130,246,0.12);--glow3:rgba(139,92,246,0.12);
+  --r:16px;--r2:12px;--r3:8px;
+  --accent:var(--cyan);--accent2:var(--blue);
+}
+html{scroll-behavior:smooth;font-size:16px}
+body{font-family:'Inter','Noto Sans SC',sans-serif;color:var(--text);background:var(--deep);overflow-x:hidden;line-height:1.7}
+::-webkit-scrollbar{width:5px}
+::-webkit-scrollbar-track{background:var(--deep)}
+::-webkit-scrollbar-thumb{background:linear-gradient(var(--cyan),var(--blue));border-radius:3px}
+a{color:inherit;text-decoration:none}
+img{display:block;max-width:100%}
+
+/* PRELOADER */
+#preloader{position:fixed;inset:0;z-index:9999;background:var(--deep);display:flex;align-items:center;justify-content:center;transition:opacity .6s,visibility .6s}
+#preloader.hidden{opacity:0;visibility:hidden}
+.loader-ring{width:60px;height:60px;border:3px solid var(--border);border-top-color:var(--cyan);border-radius:50%;animation:spin 1s linear infinite}
+@keyframes spin{to{transform:rotate(360deg)}}
+
+/* PARTICLE CANVAS */
+#particles{position:fixed;inset:0;z-index:0;pointer-events:none}
+
+/* NAV */
+.nav{position:fixed;top:0;left:0;right:0;z-index:1000;display:flex;align-items:center;justify-content:space-between;padding:0 48px;height:72px;transition:.5s cubic-bezier(.4,0,.2,1)}
+.nav::before{content:'';position:absolute;inset:0;background:linear-gradient(180deg,rgba(3,8,16,0.85),transparent);z-index:-1;opacity:0;transition:.5s}
+.nav.scrolled{backdrop-filter:blur(30px) saturate(1.4)}
+.nav.scrolled::before{opacity:1}
+.nav::after{content:'';position:absolute;bottom:0;left:48px;right:48px;height:1px;background:linear-gradient(90deg,transparent,var(--border2),transparent);opacity:0;transition:.5s}
+.nav.scrolled::after{opacity:1}
+.nav-logo{display:flex;align-items:center;gap:14px}
+.nav-logo-box{width:40px;height:40px;background:linear-gradient(135deg,var(--cyan),var(--blue));border-radius:11px;display:flex;align-items:center;justify-content:center;font-family:'Orbitron';font-weight:900;font-size:16px;color:var(--deep);box-shadow:0 0 20px var(--glow);position:relative;overflow:hidden}
+.nav-logo-box::after{content:'';position:absolute;inset:-2px;background:conic-gradient(var(--cyan),var(--blue),var(--purple),var(--cyan));border-radius:12px;z-index:-1;opacity:.3;animation:spin 4s linear infinite}
+.nav-logo-text{font-family:'Noto Sans SC';font-weight:700;font-size:17px;letter-spacing:3px;background:linear-gradient(135deg,var(--text),var(--text3));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.nav-links{display:flex;gap:32px;list-style:none}
+.nav-links a{font-size:13px;font-weight:500;color:var(--text3);transition:.3s;position:relative;letter-spacing:.5px;padding:4px 0}
+.nav-links a:hover{color:var(--cyan)}
+.nav-links a::after{content:'';position:absolute;bottom:0;left:50%;width:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--blue));transition:.3s;transform:translateX(-50%);border-radius:1px}
+.nav-links a:hover::after{width:100%}
+.nav-cta{display:inline-flex;align-items:center;gap:6px;padding:8px 20px;border-radius:50px;background:linear-gradient(135deg,var(--cyan),var(--blue));color:var(--deep);font-size:12px;font-weight:600;letter-spacing:.5px;transition:.3s;box-shadow:0 0 16px var(--glow)}
+.nav-cta:hover{transform:translateY(-1px);box-shadow:0 0 30px var(--glow)}
+.mobile-toggle{display:none;cursor:pointer;flex-direction:column;gap:5px;padding:8px}
+.mobile-toggle span{width:20px;height:2px;background:var(--text);border-radius:1px;transition:.3s}
+
+/* HERO */
+.hero{position:relative;min-height:100vh;display:flex;align-items:center;justify-content:center;overflow:hidden}
+.hero-bg{position:absolute;inset:0;z-index:0}
+.hero-bg img{width:100%;height:100%;object-fit:cover;filter:saturate(0.2) brightness(0.2) contrast(1.1);transform:scale(1.1)}
+.hero-overlay{position:absolute;inset:0;z-index:1;background:
+  radial-gradient(ellipse 80% 50% at 50% 30%,rgba(0,200,255,0.06),transparent),
+  radial-gradient(ellipse 60% 40% at 80% 70%,rgba(59,130,246,0.05),transparent),
+  linear-gradient(180deg,rgba(3,8,16,0.6) 0%,rgba(3,8,16,0.3) 40%,rgba(3,8,16,0.7) 70%,var(--deep) 100%)}
+.hero-grid-bg{position:absolute;inset:0;z-index:2;background-image:
+  linear-gradient(var(--border) 1px,transparent 1px),
+  linear-gradient(90deg,var(--border) 1px,transparent 1px);background-size:80px 80px;
+  mask-image:radial-gradient(ellipse 60% 50% at 50% 40%,black,transparent);opacity:.4}
+.hero-vignette{position:absolute;inset:0;z-index:3;background:radial-gradient(ellipse at center,transparent 40%,var(--deep) 100%)}
+.hero-content{position:relative;z-index:10;text-align:center;padding:0 24px;max-width:900px}
+.hero-chip{display:inline-flex;align-items:center;gap:10px;padding:10px 24px;border-radius:50px;background:var(--glass2);border:1px solid var(--border2);font-size:12px;font-weight:500;color:var(--text3);margin-bottom:32px;backdrop-filter:blur(12px);letter-spacing:3px;animation:heroIn .8s ease-out}
+.hero-chip-dot{width:7px;height:7px;border-radius:50%;background:var(--cyan);box-shadow:0 0 10px var(--cyan);animation:pulse-dot 2s infinite}
+@keyframes pulse-dot{0%,100%{opacity:1;transform:scale(1)}50%{opacity:.4;transform:scale(.7)}}
+.hero-tagline{font-family:'Orbitron',sans-serif;font-size:11px;letter-spacing:8px;color:var(--cyan);margin-bottom:16px;opacity:.9;animation:heroIn .8s ease-out .1s both}
+.hero-title{font-family:'Noto Sans SC',sans-serif;font-size:clamp(48px,8vw,88px);font-weight:900;line-height:1.1;margin-bottom:12px;animation:heroIn .8s ease-out .2s both}
+.hero-title .g{background:linear-gradient(135deg,var(--cyan) 0%,var(--blue) 50%,var(--cyan) 100%);background-size:200% auto;-webkit-background-clip:text;-webkit-text-fill-color:transparent;animation:gs 4s linear infinite}
+@keyframes gs{to{background-position:200% center}}
+.hero-title .sub{display:block;font-size:.38em;font-weight:300;letter-spacing:12px;color:var(--text3);-webkit-text-fill-color:var(--text3);margin-top:12px;font-family:'Noto Sans SC'}
+.hero-desc{font-size:15px;color:var(--text3);max-width:620px;margin:28px auto 40px;line-height:2;animation:heroIn .8s ease-out .4s both}
+.hero-btns{display:flex;gap:16px;justify-content:center;flex-wrap:wrap;animation:heroIn .8s ease-out .6s both}
+.btn{display:inline-flex;align-items:center;gap:8px;padding:14px 36px;border-radius:50px;font-size:14px;font-weight:600;cursor:pointer;border:none;transition:.3s;letter-spacing:.5px;font-family:inherit}
+.btn-p{background:linear-gradient(135deg,var(--cyan),var(--blue));color:var(--deep);box-shadow:0 0 30px var(--glow),0 4px 16px rgba(0,0,0,.3);position:relative;overflow:hidden}
+.btn-p::before{content:'';position:absolute;inset:0;background:linear-gradient(135deg,transparent,rgba(255,255,255,0.2),transparent);transform:translateX(-100%);transition:.6s}
+.btn-p:hover::before{transform:translateX(100%)}
+.btn-p:hover{transform:translateY(-2px);box-shadow:0 0 50px var(--glow),0 8px 24px rgba(0,0,0,.4)}
+.btn-o{background:transparent;color:var(--text);border:1px solid var(--border2);backdrop-filter:blur(8px)}
+.btn-o:hover{border-color:var(--cyan);color:var(--cyan);background:rgba(0,200,255,0.05);transform:translateY(-2px)}
+.hero-metrics{position:absolute;bottom:80px;left:0;right:0;z-index:10;display:flex;justify-content:center;gap:48px;flex-wrap:wrap;padding:0 24px;animation:heroIn .8s ease-out .8s both}
+.hero-metric{text-align:center}
+.hero-metric-val{font-family:'Orbitron',sans-serif;font-size:28px;font-weight:700;color:var(--cyan);line-height:1.2}
+.hero-metric-unit{font-family:'Orbitron';font-size:14px;color:var(--cyan);opacity:.6}
+.hero-metric-label{font-size:11px;color:var(--text4);letter-spacing:1px;margin-top:4px}
+.hero-scroll{position:absolute;bottom:24px;left:50%;transform:translateX(-50%);z-index:10;display:flex;flex-direction:column;align-items:center;gap:6px;color:var(--text4);font-size:10px;letter-spacing:4px;animation:heroIn 1s ease-out 1s both}
+.hero-scroll-bar{width:1px;height:48px;background:var(--border);position:relative;overflow:hidden}
+.hero-scroll-bar::after{content:'';position:absolute;top:-100%;left:0;width:100%;height:40%;background:linear-gradient(var(--cyan),transparent);animation:sa 2.5s infinite}
+@keyframes sa{0%{top:-40%}100%{top:140%}}
+@keyframes heroIn{from{opacity:0;transform:translateY(40px)}to{opacity:1;transform:translateY(0)}}
+
+/* STATS BAR */
+.stats-bar{position:relative;z-index:10;background:linear-gradient(135deg,rgba(0,200,255,0.04),rgba(59,130,246,0.03));border-top:1px solid var(--border);border-bottom:1px solid var(--border);backdrop-filter:blur(20px)}
+.stats-bar-inner{display:grid;grid-template-columns:repeat(4,1fr);max-width:1100px;margin:0 auto}
+.stat-item{padding:40px 24px;text-align:center;position:relative;overflow:hidden}
+.stat-item:not(:last-child)::after{content:'';position:absolute;right:0;top:20%;height:60%;width:1px;background:linear-gradient(transparent,var(--border2),transparent)}
+.stat-num{font-family:'Orbitron',sans-serif;font-size:clamp(32px,5vw,48px);font-weight:700;background:linear-gradient(135deg,var(--cyan),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent;line-height:1}
+.stat-suffix{font-family:'Orbitron';font-size:20px;font-weight:500;-webkit-text-fill-color:var(--cyan);opacity:.6}
+.stat-label{font-size:13px;color:var(--text4);margin-top:8px;letter-spacing:1px}
+.stat-bar{width:40px;height:3px;background:var(--border);border-radius:2px;margin:10px auto 0;overflow:hidden}
+.stat-bar-fill{width:0;height:100%;background:linear-gradient(90deg,var(--cyan),var(--blue));border-radius:2px;transition:width 1.5s cubic-bezier(.4,0,.2,1)}
+
+/* SECTIONS */
+.section{padding:120px 48px;position:relative;overflow:hidden}
+.sect-head{text-align:center;margin-bottom:80px;position:relative;z-index:2}
+.sect-tag{display:inline-flex;align-items:center;gap:12px;font-family:'Orbitron';font-size:10px;font-weight:600;color:var(--cyan);letter-spacing:4px;text-transform:uppercase;margin-bottom:16px}
+.sect-tag::before,.sect-tag::after{content:'';width:24px;height:1px;background:linear-gradient(90deg,transparent,var(--cyan));opacity:.5}
+.sect-tag::after{background:linear-gradient(90deg,var(--cyan),transparent)}
+.sect-title{font-family:'Noto Sans SC';font-size:clamp(30px,4.5vw,48px);font-weight:900;line-height:1.3;margin-bottom:16px}
+.sect-title .a{background:linear-gradient(135deg,var(--cyan),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.sect-desc{font-size:15px;color:var(--text4);max-width:520px;margin:0 auto;line-height:1.9}
+
+/* ABOUT */
+.about{background:var(--deep)}
+.about-deco{position:absolute;width:300px;height:300px;border:1px solid var(--border);border-radius:50%;opacity:.12}
+.about-deco.d1{top:-100px;right:-80px;animation:spin-slow 40s linear infinite}
+.about-deco.d2{bottom:-120px;left:-60px;width:400px;height:400px;animation:spin-slow 60s linear infinite reverse}
+@keyframes spin-slow{to{transform:rotate(360deg)}}
+.about-layout{display:grid;grid-template-columns:1fr 1fr;gap:80px;max-width:1100px;margin:0 auto;align-items:center}
+.about-img-area{position:relative}
+.about-img-main{border-radius:var(--r);overflow:hidden;border:1px solid var(--border2);box-shadow:0 0 80px rgba(0,200,255,0.04),0 20px 60px rgba(0,0,0,.4);position:relative}
+.about-img-main img{width:100%;aspect-ratio:16/10;object-fit:cover;transition:transform .8s}
+.about-img-main:hover img{transform:scale(1.04)}
+.about-img-main::after{content:'';position:absolute;inset:0;background:linear-gradient(135deg,rgba(0,200,255,0.05),transparent);pointer-events:none}
+.about-img-frame{position:absolute;inset:-8px;border:1px solid var(--border);border-radius:20px;opacity:.3;pointer-events:none}
+.about-img-corner{position:absolute;width:16px;height:16px;border:2px solid var(--cyan);opacity:.5;z-index:2}
+.about-img-corner.tl{top:-4px;left:-4px;border-right:none;border-bottom:none;border-radius:4px 0 0 0}
+.about-img-corner.br{bottom:-4px;right:-4px;border-left:none;border-top:none;border-radius:0 0 4px 0}
+.about-float-card{position:absolute;padding:14px 18px;background:rgba(3,8,16,0.92);backdrop-filter:blur(20px);border:1px solid var(--border2);border-radius:var(--r2);box-shadow:0 8px 32px rgba(0,0,0,.4);z-index:3}
+.about-float-card.f1{bottom:-20px;right:-20px;animation:float 6s ease-in-out infinite}
+.about-float-card.f2{top:20px;left:-28px;animation:float 6s ease-in-out infinite 2s}
+@keyframes float{0%,100%{transform:translateY(0)}50%{transform:translateY(-8px)}}
+.float-tag{font-size:10px;color:var(--text4);letter-spacing:2px;margin-bottom:2px;text-transform:uppercase}
+.float-val{font-family:'Orbitron';font-size:16px;font-weight:700;color:var(--cyan)}
+.about-text{position:relative;z-index:2}
+.about-label{font-family:'Orbitron';font-size:10px;color:var(--cyan);letter-spacing:4px;margin-bottom:16px;font-weight:600}
+.about-heading{font-family:'Noto Sans SC';font-size:32px;font-weight:900;margin-bottom:20px;line-height:1.5}
+.about-heading .em{color:var(--cyan)}
+.about-text p{font-size:14px;color:var(--text3);margin-bottom:16px;line-height:2}
+.about-text p strong{color:var(--text);font-weight:600}
+.about-mini-stats{display:grid;grid-template-columns:repeat(4,1fr);gap:12px;margin-top:32px}
+.about-mini-stat{padding:18px 8px;border-radius:var(--r2);background:var(--glass);border:1px solid var(--border);text-align:center;transition:.4s;position:relative;overflow:hidden}
+.about-mini-stat::before{content:'';position:absolute;bottom:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--blue));transform:scaleX(0);transition:.4s}
+.about-mini-stat:hover{background:var(--glass2);border-color:var(--border2);transform:translateY(-3px);box-shadow:0 8px 24px rgba(0,0,0,.3)}
+.about-mini-stat:hover::before{transform:scaleX(1)}
+.about-mini-num{font-family:'Orbitron';font-size:22px;font-weight:700;color:var(--cyan);line-height:1.2}
+.about-mini-unit{font-family:'Orbitron';font-size:11px;color:var(--cyan);opacity:.5}
+.about-mini-label{font-size:10px;color:var(--text4);margin-top:4px;letter-spacing:1px}
+
+/* TEAM */
+.team{background:var(--surface)}
+.team-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:1100px;margin:0 auto;position:relative;z-index:2}
+.team-card{padding:32px 20px;border-radius:var(--r);background:var(--glass);border:1px solid var(--border);text-align:center;transition:.4s;position:relative;overflow:hidden}
+.team-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--purple),var(--blue));transform:scaleX(0);transition:.4s}
+.team-card:hover{background:var(--glass2);border-color:var(--border2);transform:translateY(-4px);box-shadow:0 12px 36px rgba(0,0,0,.3)}
+.team-card:hover::before{transform:scaleX(1)}
+.team-avatar{width:64px;height:64px;border-radius:50%;background:linear-gradient(135deg,rgba(0,200,255,0.15),rgba(59,130,246,0.1));border:2px solid var(--border2);margin:0 auto 16px;display:flex;align-items:center;justify-content:center;font-size:24px;transition:.4s}
+.team-card:hover .team-avatar{border-color:var(--cyan);box-shadow:0 0 20px var(--glow)}
+.team-name{font-family:'Noto Sans SC';font-size:16px;font-weight:700;margin-bottom:4px}
+.team-role{font-size:11px;color:var(--cyan);margin-bottom:10px;letter-spacing:1px}
+.team-desc{font-size:12px;color:var(--text4);line-height:1.8}
+
+/* PRODUCTS */
+.products{background:var(--deep);position:relative}
+.products-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto;position:relative;z-index:2}
+.product-card{padding:36px 28px;border-radius:var(--r);background:var(--glass);border:1px solid var(--border);transition:.5s cubic-bezier(.4,0,.2,1);overflow:hidden;cursor:default}
+.product-card::before{content:'';position:absolute;top:0;left:0;right:0;height:2px;background:linear-gradient(90deg,var(--cyan),var(--blue),var(--purple));transform:scaleX(0);transform-origin:left;transition:.5s}
+.product-card::after{content:'';position:absolute;top:0;right:0;width:120px;height:120px;background:radial-gradient(circle,var(--glow),transparent);opacity:0;transition:.5s;pointer-events:none}
+.product-card:hover{background:var(--glass2);border-color:var(--border2);transform:translateY(-6px);box-shadow:0 16px 48px rgba(0,0,0,.4),0 0 40px rgba(0,200,255,0.04)}
+.product-card:hover::before{transform:scaleX(1)}
+.product-card:hover::after{opacity:1}
+.product-icon{width:56px;height:56px;border-radius:14px;display:flex;align-items:center;justify-content:center;font-size:28px;background:linear-gradient(135deg,rgba(0,200,255,0.08),rgba(59,130,246,0.04));border:1px solid var(--border);transition:.5s;margin-bottom:20px}
+.product-card:hover .product-icon{transform:scale(1.1) rotate(-5deg);box-shadow:0 0 20px var(--glow)}
+.product-name{font-family:'Noto Sans SC';font-size:17px;font-weight:700;margin-bottom:8px}
+.product-specs{display:flex;flex-wrap:wrap;gap:6px;margin-top:14px}
+.product-spec{padding:4px 10px;border-radius:50px;font-size:10px;font-weight:600;color:var(--text3);background:var(--glass);border:1px solid var(--border)}
+.product-desc{font-size:13px;color:var(--text4);line-height:1.9}
+
+/* FEATURES */
+.features{background:var(--surface);position:relative;overflow:hidden}
+.features-bg{position:absolute;inset:0;opacity:.03;background-image:radial-gradient(circle 1px,var(--text4) 1px,transparent 1px);background-size:24px 24px}
+.features-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:20px;max-width:1100px;margin:0 auto;position:relative;z-index:2}
+.feature-card{padding:32px 24px;border-radius:var(--r);background:var(--glass);border:1px solid var(--border);transition:.4s;position:relative;overflow:hidden}
+.feature-card::before{content:'';position:absolute;left:0;top:0;bottom:0;width:3px;background:linear-gradient(180deg,var(--cyan),var(--blue));transform:scaleY(0);transition:.4s;transform-origin:bottom}
+.feature-card:hover{background:var(--glass2);border-color:var(--border2);transform:translateY(-4px)}
+.feature-card:hover::before{transform:scaleY(1)}
+.feature-icon{font-size:32px;margin-bottom:14px;display:block;filter:grayscale(0)}
+.feature-title{font-family:'Noto Sans SC';font-size:16px;font-weight:700;margin-bottom:8px}
+.feature-desc{font-size:13px;color:var(--text4);line-height:1.9}
+
+/* SHOWCASE */
+.showcase{position:relative;z-index:2}
+.showcase-row{display:grid;grid-template-columns:1fr 1fr;min-height:480px}
+.showcase-row.rev{direction:rtl}
+.showcase-row.rev>*{direction:ltr}
+.showcase-img{position:relative;overflow:hidden}
+.showcase-img img{width:100%;height:100%;object-fit:cover;transition:transform 1.2s cubic-bezier(.4,0,.2,1);filter:saturate(0.7)}
+.showcase-row:hover .showcase-img img{transform:scale(1.06);filter:saturate(1)}
+.showcase-img::after{content:'';position:absolute;inset:0;background:linear-gradient(90deg,var(--surface) 0%,rgba(12,24,48,0) 50%)}
+.showcase-row.rev .showcase-img::after{background:linear-gradient(270deg,var(--surface) 0%,rgba(12,24,48,0) 50%)}
+.showcase-content{display:flex;flex-direction:column;justify-content:center;padding:72px 56px;position:relative}
+.showcase-chip{display:inline-flex;align-items:center;gap:6px;padding:6px 16px;border-radius:50px;font-size:11px;font-weight:600;letter-spacing:1px;margin-bottom:20px;align-self:flex-start;border:1px solid}
+.showcase-chip.c1{background:rgba(0,200,255,0.06);color:var(--cyan);border-color:rgba(0,200,255,0.15)}
+.showcase-chip.c2{background:rgba(139,92,246,0.06);color:var(--purple);border-color:rgba(139,92,246,0.15)}
+.showcase-chip.c3{background:rgba(59,130,246,0.06);color:var(--blue);border-color:rgba(59,130,246,0.15)}
+.showcase-h{font-family:'Noto Sans SC';font-size:28px;font-weight:900;margin-bottom:8px;line-height:1.4}
+.showcase-en{font-family:'Orbitron';font-size:10px;color:var(--text4);letter-spacing:3px;margin-bottom:20px}
+.showcase-p{font-size:14px;color:var(--text3);line-height:2;margin-bottom:24px}
+
+/* SCENARIOS */
+.scenarios{background:var(--surface);position:relative;overflow:hidden}
+.scenario-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:16px;max-width:1100px;margin:0 auto;position:relative;z-index:2}
+.scenario-card{padding:32px 16px;border-radius:var(--r2);background:var(--glass);border:1px solid var(--border);text-align:center;transition:.4s;position:relative;overflow:hidden;cursor:default}
+.scenario-card::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 0%,var(--glow),transparent 70%);opacity:0;transition:.4s}
+.scenario-card:hover{border-color:var(--border2);transform:translateY(-4px);box-shadow:0 12px 36px rgba(0,0,0,.3)}
+.scenario-card:hover::before{opacity:1}
+.scenario-card:hover .scenario-icon{transform:scale(1.15)}
+.scenario-icon{font-size:36px;margin-bottom:12px;display:block;transition:.4s}
+.scenario-name{font-size:14px;font-weight:600}
+
+/* VALUES */
+.values{background:var(--deep)}
+.values-grid{display:grid;grid-template-columns:repeat(4,1fr);gap:20px;max-width:900px;margin:0 auto;position:relative;z-index:2}
+.value-card{padding:36px 24px;border-radius:var(--r);background:var(--glass);border:1px solid var(--border);text-align:center;transition:.4s;position:relative;overflow:hidden}
+.value-card:hover{background:var(--glass2);border-color:var(--border2);transform:translateY(-4px);box-shadow:0 12px 36px rgba(0,0,0,.3)}
+.value-icon{font-size:28px;margin-bottom:12px;display:block}
+.value-title{font-family:'Noto Sans SC';font-size:18px;font-weight:700;margin-bottom:6px;background:linear-gradient(135deg,var(--cyan),var(--blue));-webkit-background-clip:text;-webkit-text-fill-color:transparent}
+.value-sub{font-size:12px;color:var(--text4);letter-spacing:2px}
+
+/* CONTACT */
+.contact{background:var(--surface);position:relative;overflow:hidden}
+.contact-deco{position:absolute;bottom:-100px;right:-100px;width:400px;height:400px;background:radial-gradient(circle,var(--glow),transparent);opacity:.2;pointer-events:none}
+.contact-grid{display:grid;grid-template-columns:1fr 1fr;gap:64px;max-width:1000px;margin:0 auto;position:relative;z-index:2}
+.contact-cards{display:flex;flex-direction:column;gap:16px}
+.contact-card{display:flex;gap:16px;padding:20px;border-radius:var(--r2);background:var(--glass);border:1px solid var(--border);transition:.3s;align-items:flex-start}
+.contact-card:hover{background:var(--glass2);border-color:var(--border2);transform:translateX(4px)}
+.contact-card-icon{flex-shrink:0;width:44px;height:44px;border-radius:12px;background:linear-gradient(135deg,rgba(0,200,255,0.08),rgba(59,130,246,0.04));border:1px solid var(--border);display:flex;align-items:center;justify-content:center;font-size:18px}
+.contact-card-label{font-size:10px;color:var(--text4);letter-spacing:2px;text-transform:uppercase;margin-bottom:4px}
+.contact-card-value{font-size:14px;font-weight:500;color:var(--text2)}
+.contact-card-value a{color:var(--cyan);transition:.3s;display:inline-block}
+.contact-card-value a:hover{color:var(--blue);transform:translateX(2px)}
+.contact-qr{border-radius:var(--r);overflow:hidden;border:1px solid var(--border);background:var(--glass);display:flex;align-items:center;justify-content:center;aspect-ratio:1/1;position:relative}
+.contact-qr::before{content:'';position:absolute;inset:0;background:radial-gradient(circle at 50% 50%,rgba(0,200,255,0.03),transparent)}
+.contact-qr-inner{display:flex;flex-direction:column;align-items:center;gap:16px;text-align:center;padding:32px}
+
+/* FOOTER */
+.footer{background:var(--deep);border-top:1px solid var(--border);position:relative;overflow:hidden}
+.footer-inner{max-width:1100px;margin:0 auto;display:grid;grid-template-columns:2fr 1fr 1fr;gap:48px;padding:72px 48px 32px;position:relative;z-index:2}
+.footer-brand h3{font-family:'Noto Sans SC';font-size:18px;font-weight:700;margin-bottom:12px}
+.footer-brand p{font-size:13px;color:var(--text4);line-height:1.9;max-width:320px}
+.footer-col h4{font-family:'Noto Sans SC';font-size:13px;font-weight:600;margin-bottom:18px;color:var(--text2);letter-spacing:1px}
+.footer-col ul{list-style:none}
+.footer-col li{margin-bottom:10px}
+.footer-col a{font-size:13px;color:var(--text4);transition:.3s}
+.footer-col a:hover{color:var(--cyan);padding-left:4px}
+.footer-bottom{max-width:1100px;margin:0 auto;padding:20px 48px;border-top:1px solid var(--border);display:flex;justify-content:space-between;font-size:11px;color:var(--text4);position:relative;z-index:2}
+
+/* DIVIDER */
+.glow-divider{height:1px;background:linear-gradient(90deg,transparent 5%,var(--cyan) 30%,var(--blue) 50%,var(--cyan) 70%,transparent 95%);opacity:.2;position:relative}
+.glow-divider::before{content:'';position:absolute;top:-4px;left:50%;transform:translateX(-50%);width:200px;height:9px;background:var(--cyan);filter:blur(8px);opacity:.3;border-radius:50%}
+
+/* REVEAL */
+.rv{opacity:0;transform:translateY(50px);transition:opacity .9s cubic-bezier(.4,0,.2,1),transform .9s cubic-bezier(.4,0,.2,1)}
+.rv.vis{opacity:1;transform:translateY(0)}
+.rv.d1{transition-delay:.1s}.rv.d2{transition-delay:.2s}.rv.d3{transition-delay:.3s}.rv.d4{transition-delay:.4s}.rv.d5{transition-delay:.5s}
+
+/* RESPONSIVE */
+@media(max-width:1024px){
+  .team-grid{grid-template-columns:repeat(2,1fr)}
+  .products-grid{grid-template-columns:repeat(2,1fr)}
+  .features-grid{grid-template-columns:repeat(2,1fr)}
+  .scenario-grid{grid-template-columns:repeat(2,1fr)}
+  .about-layout{grid-template-columns:1fr;gap:40px}
+  .about-img-area{max-width:480px;margin:0 auto}
+  .showcase-row,.showcase-row.rev{grid-template-columns:1fr;direction:ltr}
+  .showcase-img{min-height:280px}
+  .showcase-img::after,.showcase-row.rev .showcase-img::after{background:linear-gradient(180deg,transparent 40%,var(--surface))}
+  .footer-inner{grid-template-columns:1fr 1fr}
+  .values-grid{grid-template-columns:repeat(2,1fr)}
+}
+@media(max-width:768px){
+  .nav{padding:0 20px}
+  .nav-links,.nav-cta{display:none}
+  .mobile-toggle{display:flex}
+  .section{padding:80px 20px}
+  .team-grid,.products-grid,.features-grid{grid-template-columns:1fr}
+  .scenario-grid{grid-template-columns:repeat(2,1fr)}
+  .stats-bar-inner{grid-template-columns:repeat(2,1fr)}
+  .about-mini-stats{grid-template-columns:repeat(2,1fr)}
+  .showcase-content{padding:40px 24px}
+  .contact-grid{grid-template-columns:1fr}
+  .footer-inner{grid-template-columns:1fr;gap:24px;padding:48px 20px 24px}
+  .footer-bottom{flex-direction:column;gap:8px;padding:16px 20px;text-align:center}
+  .hero-btns{flex-direction:column;align-items:center}
+  .sect-head{margin-bottom:48px}
+}
+</style>
+</head>
+<body>
+
+<!-- PRELOADER -->
+<div id="preloader"><div class="loader-ring"></div></div>
+
+<!-- PARTICLES -->
+<canvas id="particles"></canvas>
+
+<!-- NAV -->
+<nav class="nav" id="nav">
+  <a href="#" class="nav-logo">
+    <div class="nav-logo-box">XY</div>
+    <div class="nav-logo-text">鑫彧科技</div>
+  </a>
+  <ul class="nav-links" id="navLinks">
+    <li><a href="#about">关于我们</a></li>
+    <li><a href="#products">自研产品</a></li>
+    <li><a href="#features">产品优势</a></li>
+    <li><a href="#scenarios">应用场景</a></li>
+    <li><a href="#contact">联系我们</a></li>
+  </ul>
+  <a href="tel:15874893227" class="nav-cta">&#9742; 158-7489-3227</a>
+  <div class="mobile-toggle" onclick="toggleMenu()"><span></span><span></span><span></span></div>
+</nav>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"><img src="images/hero-bg.jpg" alt="" loading="eager"></div>
+  <div class="hero-overlay"></div>
+  <div class="hero-grid-bg"></div>
+  <div class="hero-vignette"></div>
+  <div class="hero-content">
+    <div class="hero-chip"><span class="hero-chip-dot"></span>XYROBOT INTELLIGENT TECHNOLOGY</div>
+    <div class="hero-tagline">CHANGSHA &middot; HUNAN &middot; EST. 2022</div>
+    <h1 class="hero-title">
+      <span class="g">鑫彧科技</span>
+      <span class="sub">防爆协作机器人 &nbsp; 智能制造方案</span>
+    </h1>
+    <p class="hero-desc">专注防爆协作机器人与防爆机器人的研发生产，为高等院校智慧科研实验室与高危工业领域提供智能化设备集成解决方案。深耕行业近十年，以技术创新驱动安全生产。</p>
+    <div class="hero-btns">
+      <a href="#products" class="btn btn-p">探索产品 &#8594;</a>
+      <a href="#contact" class="btn btn-o">联系我们</a>
+    </div>
+  </div>
+  <div class="hero-metrics">
+    <div class="hero-metric"><div class="hero-metric-val" data-count="10">0</div><div class="hero-metric-unit">年+</div><div class="hero-metric-label">行业深耕</div></div>
+    <div class="hero-metric"><div class="hero-metric-val" data-count="20">0</div><div class="hero-metric-unit">+</div><div class="hero-metric-label">产品型号</div></div>
+    <div class="hero-metric"><div class="hero-metric-val" data-count="8">0</div><div class="hero-metric-unit">项</div><div class="hero-metric-label">核心专利</div></div>
+    <div class="hero-metric"><div class="hero-metric-val" data-count="24">0</div><div class="hero-metric-unit">h</div><div class="hero-metric-label">应急响应</div></div>
+  </div>
+  <div class="hero-scroll"><div class="hero-scroll-bar"></div>SCROLL</div>
+</section>
+
+<!-- STATS BAR -->
+<div class="stats-bar" id="statsBar">
+  <div class="stats-bar-inner">
+    <div class="stat-item rv"><div class="stat-num" data-count="3">0</div><div class="stat-suffix">kg ~ 200kg</div><div class="stat-label">全系列负载覆盖</div><div class="stat-bar"><div class="stat-bar-fill" data-width="95%"></div></div></div>
+    <div class="stat-item rv d1"><div class="stat-num" data-count="1650">0</div><div class="stat-suffix">mm</div><div class="stat-label">最大臂展</div><div class="stat-bar"><div class="stat-bar-fill" data-width="85%"></div></div></div>
+    <div class="stat-item rv d2"><div class="stat-num" data-count="002">0</div><div class="stat-suffix">mm</div><div class="stat-label">最高重复定位精度</div><div class="stat-bar"><div class="stat-bar-fill" data-width="70%"></div></div></div>
+    <div class="stat-item rv d3"><div class="stat-num" data-count="60">0</div><div class="stat-suffix">&#8451;</div><div class="stat-label">耐温范围</div><div class="stat-bar"><div class="stat-bar-fill" data-width="80%"></div></div></div>
+  </div>
+</div>
+
+<!-- ABOUT -->
+<section class="section about" id="about">
+  <div class="about-deco d1"></div>
+  <div class="about-deco d2"></div>
+  <div class="sect-head rv">
+    <div class="sect-tag">About Us</div>
+    <h2 class="sect-title">关于<span class="a">鑫彧科技</span></h2>
+    <p class="sect-desc">以结果为导向 · 务实负责 · 专业精进 · 合作共赢</p>
+  </div>
+  <div class="about-layout">
+    <div class="about-img-area rv d1">
+      <div class="about-img-main">
+        <img src="images/office.jpg" alt="办公环境" loading="lazy">
+      </div>
+      <div class="about-img-frame"></div>
+      <div class="about-img-corner tl"></div>
+      <div class="about-img-corner br"></div>
+      <div class="about-float-card f1">
+        <div class="float-tag">Founded</div>
+        <div class="float-val">2022 · 长沙</div>
+      </div>
+      <div class="about-float-card f2">
+        <div class="float-tag">Location</div>
+        <div class="float-val">军民融合产业园</div>
+      </div>
+    </div>
+    <div class="about-text rv d2">
+      <div class="about-label">COMPANY OVERVIEW</div>
+      <h3 class="about-heading">专注防爆机器人<br><span class="em">赋能高危行业智能化</span></h3>
+      <p>湖南鑫彧智能科技有限公司成立于<strong>2022年</strong>，位于长沙市高新开发区<strong>军民融合科技创新产业园</strong>，是一家专注于防爆协作机器人、防爆机器人研发生产的创新技术型企业。</p>
+      <p>公司在防爆协作机器人与防爆机器人领域拥有一支专业研发生产团队，涵盖<strong>机械制造、机械电气设计、自动化控制、软件设计、5G开发、防爆技术</strong>等多个领域的行业精英。</p>
+      <p>公司掌握了防爆协作机器人、防爆机器人的<strong>核心技术</strong>，自主研发的先进防爆技术已通过权威机构严格防爆认证。机器人已在<strong>军工、石油化工、喷涂、制药、煤矿、新能源</strong>等领域成功应用。</p>
+      <div class="about-mini-stats">
+        <div class="about-mini-stat"><div class="about-mini-num" data-count="8">0</div><div class="about-mini-unit">项</div><div class="about-mini-label">核心专利</div></div>
+        <div class="about-mini-stat"><div class="about-mini-num" data-count="9">0</div><div class="about-mini-unit">位</div><div class="about-mini-label">核心专家</div></div>
+        <div class="about-mini-stat"><div class="about-mini-num" data-count="20">0</div><div class="about-mini-unit">+</div><div class="about-mini-label">产品型号</div></div>
+        <div class="about-mini-stat"><div class="about-mini-num" data-count="10">0</div><div class="about-mini-unit">年</div><div class="about-mini-label">技术积累</div></div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<div class="glow-divider"></div>
+
+<!-- TEAM -->
+<section class="section team" id="team">
+  <div class="sect-head rv">
+    <div class="sect-tag">Core Team</div>
+    <h2 class="sect-title">核心<span class="a">研发团队</span></h2>
+    <p class="sect-desc">机械、电气、软件、防爆多领域行业精英</p>
+  </div>
+  <div class="team-grid">
+    <div class="team-card rv">
+      <div class="team-avatar">&#x1F468;&#x200D;&#x1F52C;</div>
+      <div class="team-name">袁佳健</div>
+      <div class="team-role">技术总监</div>
+      <div class="team-desc">硕士/工程师，工业机器人专业。11年非标设备设计经验，主持多项自动化生产线研发与实施。</div>
+    </div>
+    <div class="team-card rv d1">
+      <div class="team-avatar">&#x1F468;&#x200D;&#x1F4BB;</div>
+      <div class="team-name">阳金秀</div>
+      <div class="team-role">软件开发</div>
+      <div class="team-desc">电气及自动化专业，6年设计行业经验。负责中南大学、湖南大学等高校大型实验室建设。</div>
+    </div>
+    <div class="team-card rv d2">
+      <div class="team-avatar">&#x1F468;&#x200D;&#x2699;</div>
+      <div class="team-name">陈雄</div>
+      <div class="team-role">机械设计</div>
+      <div class="team-desc">机电一体化专业，11年非标设备设计经验。主持长丰C510白车身焊装线、正泰光伏无人化车间等开发。</div>
+    </div>
+    <div class="team-card rv d3">
+      <div class="team-avatar">&#x1F9D1;&#x200D;&#x1F4BC;</div>
+      <div class="team-name">陈鑫</div>
+      <div class="team-role">机械加工</div>
+      <div class="team-desc">机电一体化专业，20多年机械加工和机械设计经验。精通各种加工设备性能与加工工艺。</div>
+    </div>
+    <div class="team-card rv">
+      <div class="team-avatar">&#x1F468;&#x200D;&#x1F527;</div>
+      <div class="team-name">王奎鸿</div>
+      <div class="team-role">电气编程</div>
+      <div class="team-desc">电气自动化专业，12年非标设备电气编程经验。3年军工自动化生产线项目经验。</div>
+    </div>
+    <div class="team-card rv d1">
+      <div class="team-avatar">&#x1F469;&#x200D;&#x1F52C;</div>
+      <div class="team-name">张衡</div>
+      <div class="team-role">项目管理</div>
+      <div class="team-desc">机械设计专业，8年军工自动化产线经验。负责项目前期方案交流、设计及项目管理。</div>
+    </div>
+    <div class="team-card rv d2">
+      <div class="team-avatar">&#x1F468;&#x200D;&#x1F4BC;</div>
+      <div class="team-name">刘建</div>
+      <div class="team-role">产线设计</div>
+      <div class="team-desc">模具设计与制造专业，10年非标设计经验。服务3C电子、汽车、军工等行业。</div>
+    </div>
+    <div class="team-card rv d3">
+      <div class="team-avatar">&#x1F469;&#x200D;&#x1F4BB;</div>
+      <div class="team-name">彭静</div>
+      <div class="team-role">电气设计</div>
+      <div class="team-desc">机械制造与自动化专业，12年非标设计经验。主导比亚迪汽车电子水泵自动化生产线等。</div>
+    </div>
+  </div>
+</section>
+
+<div class="glow-divider"></div>
+
+<!-- PRODUCTS -->
+<section class="section products" id="products">
+  <div class="sect-head rv">
+    <div class="sect-tag">Products</div>
+    <h2 class="sect-title">自研<span class="a">专利产品</span></h2>
+    <p class="sect-desc">通过权威防爆认证，协作机型与工业机型全系列覆盖</p>
+  </div>
+  <div class="products-grid">
+    <div class="product-card rv">
+      <div class="product-icon">&#x1F916;</div>
+      <div class="product-name">防爆协作机器人</div>
+      <div class="product-desc">可在1区气体和2区粉尘危险作业环境安全运行，符合EN ISO 13849 PLd安全认证。中空臂构型，关节一体化设计。</div>
+      <div class="product-specs">
+        <span class="product-spec">3kg</span>
+        <span class="product-spec">5kg</span>
+        <span class="product-spec">10kg</span>
+        <span class="product-spec">16kg</span>
+        <span class="product-spec">20kg</span>
+      </div>
+    </div>
+    <div class="product-card rv d1">
+      <div class="product-icon">&#x2699;</div>
+      <div class="product-name">工业防爆机器人</div>
+      <div class="product-desc">大负载工业级防爆机器人，覆盖7kg到200kg全系列负载。精密运动控制，适用于高危环境下的装配、搬运、焊接等。</div>
+      <div class="product-specs">
+        <span class="product-spec">7kg</span>
+        <span class="product-spec">12kg</span>
+        <span class="product-spec">25kg</span>
+        <span class="product-spec">50kg</span>
+        <span class="product-spec">200kg</span>
+      </div>
+    </div>
+    <div class="product-card rv d2">
+      <div class="product-icon">&#x1F4BB;</div>
+      <div class="product-name">YRiver 显控一体控制器</div>
+      <div class="product-desc">自主研发关节一体化构型，传动效率提升2倍。EtherCAT高速总线，支持PC端示教软件和组态软件编程。</div>
+      <div class="product-specs">
+        <span class="product-spec">1280x800</span>
+        <span class="product-spec">EtherCAT</span>
+        <span class="product-spec">PLd认证</span>
+      </div>
+    </div>
+    <div class="product-card rv">
+      <div class="product-icon">&#x1F3E1;</div>
+      <div class="product-name">防爆型控制柜</div>
+      <div class="product-desc">Ex psd IIB T4 Gb防爆等级，IP65防护，三档使能开关、双回路急停、安全输入输出、过流过压保护。</div>
+      <div class="product-specs">
+        <span class="product-spec">IIB T4</span>
+        <span class="product-spec">IP65</span>
+        <span class="product-spec">AC220V</span>
+      </div>
+    </div>
+    <div class="product-card rv d1">
+      <div class="product-icon">&#x1F4F1;</div>
+      <div class="product-name">防爆示教器</div>
+      <div class="product-desc">10.4英寸电容式触摸屏，1024x800分辨率，Ex psd IIC T6 Gb防爆等级，重量仅2.8kg（含线缆），IP54防护。</div>
+      <div class="product-specs">
+        <span class="product-spec">10.4"</span>
+        <span class="product-spec">IIC T6</span>
+        <span class="product-spec">2.8kg</span>
+      </div>
+    </div>
+    <div class="product-card rv d2">
+      <div class="product-icon">&#x1F3AF;</div>
+      <div class="product-name">定制化解决方案</div>
+      <div class="product-desc">根据用户需求进行机器人细分行业功能定制，提供二次开发接口。支持扫码、识别、定位、传送带动态跟踪等技术。</div>
+      <div class="product-specs">
+        <span class="product-spec">二次开发</span>
+        <span class="product-spec">视觉算法</span>
+        <span class="product-spec">动态跟踪</span>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FEATURES -->
+<section class="section features" id="features">
+  <div class="features-bg"></div>
+  <div class="sect-head rv">
+    <div class="sect-tag">Advantages</div>
+    <h2 class="sect-title">产品<span class="a">核心优势</span></h2>
+    <p class="sect-desc">更可靠 · 更精准 · 更简单 · 更柔性 · 更便捷 · 更智能</p>
+  </div>
+  <div class="features-grid">
+    <div class="feature-card rv"><span class="feature-icon">&#x1F6E1;</span><div class="feature-title">更可靠</div><div class="feature-desc">可用于1区气体和2区粉尘危险作业环境。符合EN ISO 13849 PLd安全认证。掉电不下坠，模块化设计便于维修。</div></div>
+    <div class="feature-card rv d1"><span class="feature-icon">&#x1F3AF;</span><div class="feature-title">更精准</div><div class="feature-desc">重复定位精度可达&#177;0.02mm。可长时间连续运行，完成高精度要求的工作。自主优化加加速度，发挥最大性能。</div></div>
+    <div class="feature-card rv d2"><span class="feature-icon">&#x1F4DA;</span><div class="feature-title">更简单</div><div class="feature-desc">可视化拖拽式编程，快速掌握。支持示教器、PC端软件和组态触摸屏多种编程模式。任意安装，即插即用。</div></div>
+    <div class="feature-card rv"><span class="feature-icon">&#x1F504;</span><div class="feature-title">更柔性</div><div class="feature-desc">可在狭窄空间内灵活配置末端执行器，适应不同任务。力控碰撞检测，人机协作安全可靠。</div></div>
+    <div class="feature-card rv d1"><span class="feature-icon">&#x26A1;</span><div class="feature-title">更便捷</div><div class="feature-desc">EtherCAT高速总线，无需复杂接线，直接连接本体即可工作。线路故障率低，抗干扰能力强。</div></div>
+    <div class="feature-card rv d2"><span class="feature-icon">&#x1F441;</span><div class="feature-title">更智能</div><div class="feature-desc">自带视觉算法和接口，支持扫码、识别、定位、检测。通过EMC、振动、温湿度、静电等多种测试。</div></div>
+  </div>
+</section>
+
+<div class="glow-divider"></div>
+
+<!-- SHOWCASE: Universities -->
+<div class="showcase" id="showcase">
+  <div class="showcase-row rv">
+    <div class="showcase-img"><img src="images/products.jpg" alt="产品展示" loading="lazy"></div>
+    <div class="showcase-content">
+      <span class="showcase-chip c1">&#9679; 高等院校</span>
+      <h2 class="showcase-h">智慧科研实验室<br>集成解决方案</h2>
+      <div class="showcase-en">SMART RESEARCH LABORATORY INTEGRATION</div>
+      <p class="showcase-p">为高等院校智慧科研实验室提供一站式仪器设备建设集成解决方案，涵盖方案设计、设备集成、运维支持的全流程服务，以及机电、材料、土木、生化等跨学科联动与融合。</p>
+      <div class="showcase-p" style="color:var(--cyan);font-weight:600;font-size:13px">服务院校：中南大学 · 湖南大学 · 湘潭大学 · 中南林业科技大学 · 湖南科技大学 · 长沙理工大学 · 湖南城市学院 · 长沙大学 · 湖南交通职业技术学院</div>
+    </div>
+  </div>
+</div>
+
+<div class="glow-divider"></div>
+
+<div class="showcase">
+  <div class="showcase-row rev rv">
+    <div class="showcase-img"><img src="images/testing.jpg" alt="工业应用" loading="lazy"></div>
+    <div class="showcase-content">
+      <span class="showcase-chip c2">&#9679; 工业企业</span>
+      <h2 class="showcase-h">高危工业领域<br>智能化升级</h2>
+      <div class="showcase-en">INDUSTRIAL INTELLIGENCE UPGRADE</div>
+      <p class="showcase-p">为工业领域企业提供非标智能化制造升级的成套解决方案和防爆协作机器人等一系列产品。每一次技术突破都以零风险为前提，与客户共创解决方案。</p>
+      <div class="showcase-p" style="color:var(--purple);font-weight:600;font-size:13px">服务领域：军工 · 石油化工 · 喷涂 · 制药 · 煤矿 · 新能源 · 汽车 · 3C电子</div>
+    </div>
+  </div>
+</div>
+
+<!-- SCENARIOS -->
+<section class="section scenarios" id="scenarios">
+  <div class="sect-head rv">
+    <div class="sect-tag">Applications</div>
+    <h2 class="sect-title">应用<span class="a">场景</span></h2>
+    <p class="sect-desc">防爆协作机器人可安全集成到高危环境生产线中</p>
+  </div>
+  <div class="scenario-grid">
+    <div class="scenario-card rv"><span class="scenario-icon">&#x1F3ED;</span><div class="scenario-name">石油化工</div></div>
+    <div class="scenario-card rv d1"><span class="scenario-icon">&#x1F680;</span><div class="scenario-name">军工弹药</div></div>
+    <div class="scenario-card rv d2"><span class="scenario-icon">&#x1FAA3;</span><div class="scenario-name">喷涂作业</div></div>
+    <div class="scenario-card rv d3"><span class="scenario-icon">&#x2622;</span><div class="scenario-name">核电能源</div></div>
+    <div class="scenario-card rv"><span class="scenario-icon">&#x1F48A;</span><div class="scenario-name">制药生产</div></div>
+    <div class="scenario-card rv d1"><span class="scenario-icon">&#x26CF;</span><div class="scenario-name">煤矿开采</div></div>
+    <div class="scenario-card rv d2"><span class="scenario-icon">&#x2699;</span><div class="scenario-name">汽车加油</div></div>
+    <div class="scenario-card rv d3"><span class="scenario-icon">&#x1F525;</span><div class="scenario-name">粉尘场所</div></div>
+  </div>
+</section>
+
+<div class="glow-divider"></div>
+
+<!-- VALUES -->
+<section class="section values">
+  <div class="sect-head rv">
+    <div class="sect-tag">Corporate Values</div>
+    <h2 class="sect-title">企业<span class="a">价值观</span></h2>
+    <p class="sect-desc">成为行业领先的智慧科研与智能化工业解决方案供应商</p>
+  </div>
+  <div class="values-grid">
+    <div class="value-card rv"><span class="value-icon">&#x1F6A9;</span><div class="value-title">担当</div><div class="value-sub">务实负责 · 踏实做事</div></div>
+    <div class="value-card rv d1"><span class="value-icon">&#x1F527;</span><div class="value-title">专业</div><div class="value-sub">技术驱动 · 专注利他</div></div>
+    <div class="value-card rv d2"><span class="value-icon">&#x1F4C8;</span><div class="value-title">精进</div><div class="value-sub">精准可靠 · 优化创新</div></div>
+    <div class="value-card rv d3"><span class="value-icon">&#x1F91D;</span><div class="value-title">共赢</div><div class="value-sub">客户导向 · 共进共赢</div></div>
+  </div>
+</section>
+
+<div class="glow-divider"></div>
+
+<!-- CONTACT -->
+<section class="section contact" id="contact">
+  <div class="contact-deco"></div>
+  <div class="sect-head rv">
+    <div class="sect-tag">Contact Us</div>
+    <h2 class="sect-title">联系<span class="a">鑫彧科技</span></h2>
+    <p class="sect-desc">欢迎来电咨询与订购</p>
+  </div>
+  <div class="contact-grid">
+    <div class="contact-cards rv">
+      <div class="contact-card">
+        <div class="contact-card-icon">&#x1F3E2;</div>
+        <div><div class="contact-card-label">公司名称</div><div class="contact-card-value">湖南鑫彧智能科技有限公司</div></div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card-icon">&#x1F4CD;</div>
+        <div><div class="contact-card-label">注册地址</div><div class="contact-card-value">长沙高新开发区青山路699号<br>湖南省军民融合科技创新产业园</div></div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card-icon">&#x1F3E2;</div>
+        <div><div class="contact-card-label">研发中心</div><div class="contact-card-value">长沙高新开发区华宽通科技园</div></div>
+      </div>
+      <div class="contact-card">
+        <div class="contact-card-icon">&#x1F4DE;</div>
+        <div>
+          <div class="contact-card-label">业务联系</div>
+          <div class="contact-card-value">
+            <a href="tel:15874893227">阳女士 158-7489-3227</a><br>
+            <a href="tel:15576611173">阳先生 155-7661-1173</a><br>
+            <a href="tel:19173166282">张先生 191-7316-6282</a>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div class="contact-qr rv d2">
+      <div class="contact-qr-inner">
+        <div style="width:160px;height:160px;border-radius:var(--r);background:var(--glass2);border:1px solid var(--border2);display:flex;align-items:center;justify-content:center;font-size:64px">&#x1F4F1;</div>
+        <div style="font-size:15px;font-weight:600">扫码了解更多</div>
+        <div style="font-size:12px;color:var(--text4)">鑫彧科技 · 防爆协作机器人</div>
+      </div>
+    </div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer class="footer">
+  <div class="footer-inner">
+    <div class="footer-brand">
+      <h3>&#x2699; 鑫彧科技</h3>
+      <p>湖南鑫彧智能科技有限公司，专注防爆协作机器人研发生产，为高等院校与高危工业领域提供智能化设备集成解决方案。以技术创新驱动安全生产。</p>
+      <p style="margin-top:16px;font-family:'Orbitron';font-size:11px;color:var(--text4);letter-spacing:2px">XYROBOT INTELLIGENT · EST. 2022</p>
+    </div>
+    <div class="footer-col">
+      <h4>核心产品</h4>
+      <ul>
+        <li><a href="#products">防爆协作机器人</a></li>
+        <li><a href="#products">工业防爆机器人</a></li>
+        <li><a href="#products">显控一体控制器</a></li>
+        <li><a href="#products">防爆控制柜</a></li>
+        <li><a href="#products">定制化方案</a></li>
+      </ul>
+    </div>
+    <div class="footer-col">
+      <h4>快速链接</h4>
+      <ul>
+        <li><a href="#about">关于我们</a></li>
+        <li><a href="#team">核心团队</a></li>
+        <li><a href="#features">产品优势</a></li>
+        <li><a href="#scenarios">应用场景</a></li>
+        <li><a href="#contact">联系我们</a></li>
+      </ul>
+    </div>
+  </div>
+  <div class="footer-bottom">
+    <span>&copy; 2022-2027 湖南鑫彧智能科技有限公司</span>
+    <span>Hunan Xinyu Intelligent Technology Co., Ltd</span>
+  </div>
+</footer>
+
+<script>
+// Preloader
+window.addEventListener('load',()=>{setTimeout(()=>document.getElementById('preloader').classList.add('hidden'),600)});
+
+// Particle Network
+(function(){
+  const c=document.getElementById('particles'),ctx=c.getContext('2d');
+  let w,h,particles=[];
+  const resize=()=>{w=c.width=innerWidth;h=c.height=innerHeight};
+  resize();window.addEventListener('resize',resize);
+  class P{constructor(){this.reset()}reset(){this.x=Math.random()*w;this.y=Math.random()*h;this.vx=(Math.random()-.5)*.3;this.vy=(Math.random()-.5)*.3;this.r=Math.random()*1.5+.5;this.o=Math.random()*.35+.08}update(){this.x+=this.vx;this.y+=this.vy;if(this.x<0||this.x>w)this.vx*=-1;if(this.y<0||this.y>h)this.vy*=-1}draw(){ctx.beginPath();ctx.arc(this.x,this.y,this.r,0,Math.PI*2);ctx.fillStyle=`rgba(0,200,255,${this.o})`;ctx.fill()}}
+  const count=Math.min(Math.floor(w*h/12000),100);
+  for(let i=0;i<count;i++)particles.push(new P());
+  const ld=150;
+  function animate(){ctx.clearRect(0,0,w,h);for(let i=0;i<particles.length;i++){particles[i].update();particles[i].draw();for(let j=i+1;j<particles.length;j++){const dx=particles[i].x-particles[j].x,dy=particles[i].y-particles[j].y,d=Math.sqrt(dx*dx+dy*dy);if(d<ld){ctx.beginPath();ctx.moveTo(particles[i].x,particles[i].y);ctx.lineTo(particles[j].x,particles[j].y);ctx.strokeStyle=`rgba(0,200,255,${.05*(1-d/ld)})`;ctx.lineWidth=.5;ctx.stroke()}}}requestAnimationFrame(animate)}
+  animate();
+})();
+
+// Nav Scroll
+const nav=document.getElementById('nav');
+window.addEventListener('scroll',()=>nav.classList.toggle('scrolled',scrollY>80),{passive:true});
+
+// Reveal
+const rvObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.classList.add('vis');e.target.querySelectorAll('[data-count]').forEach(animateCounter);e.target.querySelectorAll('.stat-bar-fill[data-width]').forEach(bar=>{setTimeout(()=>{bar.style.width=bar.dataset.width},300)})}})},{threshold:.1,rootMargin:'0px 0px -60px 0px'});
+document.querySelectorAll('.rv').forEach(el=>rvObs.observe(el));
+
+// Counter
+const cc=new Set();
+function animateCounter(el){if(cc.has(el))return;cc.add(el);const target=parseInt(el.dataset.count);const dur=2000;const start=performance.now();const ease=t=>t<.5?4*t*t*t:1-Math.pow(-2*t+2,3)/2;function tick(now){const p=Math.min((now-start)/dur,1);el.textContent=Math.round(ease(p)*target).toLocaleString();if(p<1)requestAnimationFrame(tick)}requestAnimationFrame(tick)}
+
+// Smooth Scroll
+document.querySelectorAll('a[href^="#"]').forEach(a=>{a.addEventListener('click',e=>{e.preventDefault();const t=document.querySelector(a.getAttribute('href'));if(t)t.scrollIntoView({behavior:'smooth',block:'start'});const l=document.getElementById('navLinks');if(l.classList.contains('open'))toggleMenu()})});
+
+// Mobile Menu
+function toggleMenu(){const l=document.getElementById('navLinks');l.classList.toggle('open');if(l.classList.contains('open')){l.style.cssText='display:flex;flex-direction:column;position:fixed;top:72px;left:0;right:0;bottom:0;background:rgba(3,8,16,0.97);padding:32px 24px;gap:4px;z-index:999;backdrop-filter:blur(30px)';l.querySelectorAll('a').forEach(a=>{a.style.cssText='font-size:16px;color:var(--text);padding:14px 0;border-bottom:1px solid var(--border);display:block'})}else{l.style.cssText='';l.querySelectorAll('a').forEach(a=>a.style.cssText='')}}
+
+// Parallax
+window.addEventListener('scroll',()=>{const s=scrollY;const bg=document.querySelector('.hero-bg img');if(bg&&s<innerHeight)bg.style.transform=`scale(1.1) translateY(${s*0.15}px)`},{passive:true});
+
+// Stats trigger
+const sObs=new IntersectionObserver(es=>{es.forEach(e=>{if(e.isIntersecting){e.target.querySelectorAll('.stat-bar-fill[data-width]').forEach(bar=>{setTimeout(()=>{bar.style.width=bar.dataset.width},300)});e.target.querySelectorAll('[data-count]').forEach(animateCounter)}})},{threshold:.3});
+document.getElementById('statsBar')&&sObs.observe(document.getElementById('statsBar'));
+</script>
+</body>
+</html>
